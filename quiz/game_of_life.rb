@@ -46,7 +46,7 @@ class GameOfLife
         @padding_board[y_index][x_index] = cell[1] if cell.is_a?(Array)
       end
     end
-    @board = @padding_board
+    @board = @padding_board.map(&:dup)
   end
 
   # Check the position to decide the cell execute is needed
@@ -75,11 +75,13 @@ class GameOfLife
   # @return [nil]
   def keep_cell_alive(position)
     cell_report = check_cell(position)
-    if cell_report[:true] <= 3 || cell_report[:true] >= 2
-      if @padding_board[position[1]][position[0]] == 1
+    if cell_report[:true] == 3 || cell_report[:true] == 2
+      if @board[position[1]][position[0]] == 1
         @padding_board[position[1]][position[0]] =
           [@padding_board[position[1]][position[0]], 1]
-      elsif @padding_board[position[1]][position[0]] == 0 && cell_report[:true] == 3
+      elsif @board[position[1]][position[0]] == 0 && cell_report[:true] == 3
+
+        puts 'true'
         @padding_board[position[1]][position[0]] =
           [@padding_board[position[1]][position[0]], 1]
       end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe GameOfLife do
-  
   describe '#execute' do
     let(:board) do
       [
@@ -19,6 +18,40 @@ RSpec.describe GameOfLife do
     end
     subject { GameOfLife.new(board).execute }
     it { is_expected.to eq expected }
+    context 'when wronge case 1' do
+      let(:board) do
+        [
+          [0, 1, 0],
+          [1, 0, 1],
+          [1, 0, 1]
+        ]
+      end
+      let(:expected) do
+        [
+          [0, 1, 0],
+          [1, 0, 1],
+          [0, 0, 0]
+        ]
+      end
+      it { is_expected.to eq expected }
+    end
+    context 'when wronge case 2 and run 2 times' do
+      subject do
+        main_proccess = GameOfLife.new(board)
+        Array.new(2) do
+          main_proccess.execute
+        end.last
+      end
+      let(:board) do
+        [
+          [0, 0, 0, 0],
+          [0, 1, 1, 0],
+          [0, 1, 1, 0],
+          [0, 0, 0, 0]
+        ]
+      end
+      it { is_expected.to eq board }
+    end
   end
   describe '#kill_cell' do
     let(:board) do
