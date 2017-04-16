@@ -76,25 +76,20 @@ class GameOfLife
   # @return [array] A list of around cell message
   def gather_around_cell(position)
     result = []
-    uper_layer = @board[position[0] - 1]
-    lower_layer = @board[position[0] + 1]
+    uper_layer = position[1] - 1 >= 0 ? @board[position[1] - 1] : nil
+    lower_layer = @board[position[1] + 1]
+    current_layer = @board[position[1]]
     [uper_layer, lower_layer].each do |layer|
-      [layer[position[1] - 1],
-       layer[position[1]],
-       layer[position[1] + 1]].each do |cell|
-        next if cell.nil?
-        result << cell
+      next if layer.nil?
+      [position[0] - 1, position[0], position[0] + 1].each do |selector|
+        next if layer[selector].nil? || selector < 0
+        result << layer[selector]
       end
     end
+    [position[0] - 1, position[0] + 1].each do |selector|
+      next if current_layer[selector].nil? || selector < 0
+      result << current_layer[selector]
+    end
     result
-    # uper_layer_middle_cell= uper_layer[position[1]]
-    # uper_layer_right_cell= uper_layer[position[1]+1]
-    # uper_layer_left_cell= uper_layer[position[1]-1]
-    # current_layer_right_cell= @board[position[0]][position[1]+1]
-    # current_layer_left_cell= @board[position[0]][position[1]-1]
-    # lower_layer = @board[position[0]-1]
-    # lower_layer_middle_cell= lower_layer[position[1]]
-    # lower_layer_right_cell= lower_layer[position[1]+1]
-    # lower_layer_left_cell= lower_layer[position[1]-1]
   end
 end
