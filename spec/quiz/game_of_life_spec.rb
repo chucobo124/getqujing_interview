@@ -19,8 +19,44 @@ RSpec.describe GameOfLife do
         [0, 0, 1]
       ]
     end
-    subject { GameOfLife.new(board).kill_cell([2, 3]) }
-    it { is_expected.to be false }
+    let(:selector) { [1, 1] }
+    subject { GameOfLife.new(board).kill_cell(selector) }
+    it { is_expected.to eq expected }
+    context 'when select the alive cell' do
+      let(:selector) { [2, 0] }
+      it { is_expected.to eq board }
+    end
+    context 'when board of some number had been flag' do
+      before do
+        subject.instance_variable_set(:@padding_board,
+        [
+          [0, 1, 1],
+          [0, [1, 0], 1],
+          [1, 0, 1]
+        ])
+      end
+      subject{
+        GameOfLife.new(board)
+      }
+      let(:board) do
+        [
+          [0, 1, 1],
+          [0, 1, 1],
+          [1, 0, 1]
+        ]
+      end
+      let(:expected) do
+        [
+          [0, 1, 1],
+          [0, [1, 0], 1],
+          [[1, 0], 0, 1]
+        ]
+      end
+      let(:selector) { [0, 2] }
+      it 'mached the expected' do
+        expect(subject.kill_cell(selector)).to eq expected
+      end
+    end
   end
 
   describe '#keep_cell_alive' do
