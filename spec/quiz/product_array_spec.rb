@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 describe ProductArray do
   describe 'output' do
     let(:array_params) { [1, 2, 3, 4] }
