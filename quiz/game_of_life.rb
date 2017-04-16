@@ -65,8 +65,15 @@ class GameOfLife
   #
   # @param [Array] position cell position , array x,y coordinate
   # @return [Hash] return detail of cell arround message
-  def check_cell(_position)
+  def check_cell(position)
     result = { true: 0, false: 0 }
+    gather_around_cell(position).each do |cell|
+      if cell == 0
+        result[:false] += 1
+      else
+        result[:true] += 1
+      end
+    end
     result
   end
 

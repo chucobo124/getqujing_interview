@@ -42,7 +42,7 @@ RSpec.describe GameOfLife do
     it { is_expected.to eq true: 4, false: 4 }
     context 'when select right buttom' do
       let(:selector) { [2, 2] }
-      it { is_expected.to eq true: 3, false: 1 }
+      it { is_expected.to eq true: 2, false: 1 }
     end
   end
 
