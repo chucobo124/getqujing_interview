@@ -29,15 +29,13 @@ RSpec.describe GameOfLife do
     context 'when board of some number had been flag' do
       before do
         subject.instance_variable_set(:@padding_board,
-        [
-          [0, 1, 1],
-          [0, [1, 0], 1],
-          [1, 0, 1]
-        ])
+                                      [
+                                        [0, 1, 1],
+                                        [0, [1, 0], 1],
+                                        [1, 0, 1]
+                                      ])
       end
-      subject{
-        GameOfLife.new(board)
-      }
+      subject { GameOfLife.new(board) }
       let(:board) do
         [
           [0, 1, 1],
