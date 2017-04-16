@@ -30,6 +30,13 @@ class GameOfLife
     @padding_board = @board.dup
   end
 
+  # Proccess the game of life
+  #
+  # @return [string] The grafic result
+  def proccess
+    
+  end
+
   # Check the position to decide the cell execute is needed
   # Role:
   #  - Any live cell with more than three live neighbors dies, as if by over-population.
@@ -49,21 +56,23 @@ class GameOfLife
   # Check the position to decide the cell is alived
   # Role:
   #  - Any live cell with two or three live neighbors lives on to the next generation.
+  #  - Any dead cell with exactly three live neighbors becomes a live cell, as
+  #    if by reproduction.
   #
   # @param [Array] position cell position , array x,y coordinate
   # @return [nil]
   def keep_cell_alive(position)
-  end
-
-  # Check the position to decide cell rebron
-  # Role:
-  #  - Any dead cell with exactly three live neighbors becomes a live cell, as
-  # if by reproduction.
-  #
-  #
-  # @param [Type] position cell position , array x,y coordinate
-  # @return [Type] description of returned object
-  def grow_out_cells(position)
+    cell_report = check_cell(position)
+    if cell_report[:true] < 3 || cell_report[:true] > 2
+      if @padding_board[position[1]][position[0]] == 1
+        @padding_board[position[1]][position[0]] =
+          [@padding_board[position[1]][position[0]], 1]
+      elsif @padding_board[position[1]][position[0]] == 0 && cell_report[:true] == 3
+        @padding_board[position[1]][position[0]] =
+          [@padding_board[position[1]][position[0]], 1]
+      end
+    end
+    @padding_board
   end
 
   private
