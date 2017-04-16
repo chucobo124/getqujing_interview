@@ -72,12 +72,20 @@ RSpec.describe GameOfLife do
         [1, 0, 1]
       ]
     end
-    let(:selector) { [2, 0] }
+    let(:selector) { [1, 0] }
     subject { GameOfLife.new(board).send(:keep_cell_alive, selector) }
     it { is_expected.to eq expected }
-  end
-
-  describe '#grow_out_cells' do
+    context 'when cell is obey to raising role' do
+      let(:expected) do
+        [
+          [0, 1, [0,1]],
+          [1, 1, 1],
+          [1, 0, 1]
+        ]
+      end
+      let(:selector) { [2, 0] }
+      it { is_expected.to eq expected }
+    end
   end
 
   describe '#check_cell' do
