@@ -36,7 +36,7 @@ class GameOfLife
   #  - Any live cell with fewer than two live neighbors dies, as if caused by under-population.
   #
   # @param [Array] position cell position , array x,y coordinate
-  # @return [nil]
+  # @return [Array] padding board Display the padding board result
   def kill_cell(position)
     cell_report = check_cell(position)
     if cell_report[:true] > 3 || cell_report[:true] < 2
