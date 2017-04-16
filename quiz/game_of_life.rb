@@ -80,8 +80,6 @@ class GameOfLife
         @padding_board[position[1]][position[0]] =
           [@padding_board[position[1]][position[0]], 1]
       elsif @board[position[1]][position[0]] == 0 && cell_report[:true] == 3
-
-        puts 'true'
         @padding_board[position[1]][position[0]] =
           [@padding_board[position[1]][position[0]], 1]
       end
