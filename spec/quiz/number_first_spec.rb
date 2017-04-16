@@ -13,5 +13,9 @@ RSpec.describe NumberFirst do
       let(:array_params) { [3, 12, 0, 0, 0] }
       it { is_expected.to eq [3, 12, 0, 0, 0] }
     end
+    context 'when array has zero at last postion' do
+      let(:array_params) { [3, 12, 0, 2, 0] }
+      it { is_expected.to eq [3, 12, 2, 0, 0] }
+    end
   end
 end
