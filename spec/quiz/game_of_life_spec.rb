@@ -1,9 +1,25 @@
 require 'spec_helper'
 
 RSpec.describe GameOfLife do
-  describe '#initialize' do
+  
+  describe '#execute' do
+    let(:board) do
+      [
+        [0, 1, 1],
+        [0, 1, 1],
+        [0, 0, 1]
+      ]
+    end
+    let(:expected) do
+      [
+        [0, 1, 1],
+        [0, 0, 0],
+        [0, 1, 1]
+      ]
+    end
+    subject { GameOfLife.new(board).execute }
+    it { is_expected.to eq expected }
   end
-
   describe '#kill_cell' do
     let(:board) do
       [
@@ -78,12 +94,30 @@ RSpec.describe GameOfLife do
     context 'when cell is obey to raising role' do
       let(:expected) do
         [
-          [0, 1, [0,1]],
+          [0, 1, [0, 1]],
           [1, 1, 1],
           [1, 0, 1]
         ]
       end
       let(:selector) { [2, 0] }
+      it { is_expected.to eq expected }
+    end
+    context 'when cell is obey to raising role and position is on middle buttom' do
+      let(:board) do
+        [
+          [0, 1, 0],
+          [0, 1, 1],
+          [0, 0, 1]
+        ]
+      end
+      let(:expected) do
+        [
+          [0, 1, 0],
+          [0, 1, 1],
+          [0, [0, 1], 1]
+        ]
+      end
+      let(:selector) { [1, 2] }
       it { is_expected.to eq expected }
     end
   end
