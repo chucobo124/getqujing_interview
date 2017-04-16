@@ -27,6 +27,7 @@ class GameOfLife
   # @return [nil]
   def initialize(board)
     @board = board
+    @padding_board = @board.dup
   end
 
   # Check the position to decide the cell execute is needed
@@ -37,6 +38,12 @@ class GameOfLife
   # @param [Array] position cell position , array x,y coordinate
   # @return [nil]
   def kill_cell(position)
+    cell_report = check_cell(position)
+    if cell_report[:true] > 3 || cell_report[:true] < 2
+      @padding_board[position[1]][position[0]] =
+        [@padding_board[position[1]][position[0]], 0]
+    end
+    @padding_board
   end
 
   # Check the position to decide the cell is alived
