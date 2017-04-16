@@ -1,6 +1,7 @@
 require 'test_helper'
 
 RSpec::Matchers.define :be_multiple_with_others do |expected|
+  correct_result = []
   match do |actual|
     # The function below is going to match the result with expected each by each
     answer = false
@@ -10,6 +11,7 @@ RSpec::Matchers.define :be_multiple_with_others do |expected|
       result.delete_at(index)
       result.each do |index|
         expect = expect * index
+        correct_result << expect
       end
       # If find the answer is not true break the loop and return false
       answer = actual[index] == expect && actual[index] > 1
@@ -19,12 +21,15 @@ RSpec::Matchers.define :be_multiple_with_others do |expected|
     end
     answer
   end
+  failure_message do |actual|
+    "expected that #{actual} would be match #{correct_result}"
+  end
 end
 
 describe ProductArray do
   describe 'output' do
     let(:array_params) do
-      Array.new(rand(6..10)) { rand(1..10_000) }
+      rand(3..10).times.map {|index| rand(1..10_000) }
     end
     subject { ProductArray.output(array_params) }
     it { is_expected.to be_multiple_with_others(array_params) }
