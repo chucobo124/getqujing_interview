@@ -27,6 +27,6 @@ describe ProductArray do
       Array.new(rand(6..10)) { rand(1..10_000) }
     end
     subject { ProductArray.output(array_params) }
-    it { is_expected.to be_multiple_with_others([1,2,3,4]) }
+    it { is_expected.to be_multiple_with_others(array_params) }
   end
 end
