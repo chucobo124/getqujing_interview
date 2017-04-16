@@ -12,9 +12,8 @@ class ProductArray
   # @param [Array] array array numbers
   # @return [Array] multiply result
   def self.output(array)
-    return unless array.count >= 1
-    result_array = array.count.times.map do |index|
-      break unless array[index] >= 1
+    return [] unless array.count >= 1
+    result_array = Array.new(array.count) do |index|
       result = 1
       multiply_array = array.dup
       multiply_array.delete_at(index)
@@ -23,7 +22,6 @@ class ProductArray
       end
       result
     end
-    return false if result_array.count != array.count
     result_array
   end
 end
