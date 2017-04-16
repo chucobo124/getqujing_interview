@@ -1,46 +1,20 @@
 require 'test_helper'
-
-RSpec::Matchers.define :be_multiple_with_others do |expected|
-  correct_result = []
-  match do |actual|
-    # The function below is going to match the result with expected each by each
-    answer = false
-    expected.count.times do |expect_index|
-      result = expected.dup
-      expect = 1
-      result.delete_at(expect_index)
-      result.each do |result_index|
-        expect *= result_index
-        correct_result << expect
-      end
-      # If find the answer is not true break the loop and return false
-      answer = actual[expect_index] == expect
-      break unless answer
-    end
-    answer
-  end
-  failure_message do |actual|
-    "expected that #{actual} would be match #{correct_result}"
-  end
-end
-
 describe ProductArray do
   describe 'output' do
-    let(:array_params) do
-      Array.new(rand(3..10)) { rand(1..10_000) }
-    end
+    let(:array_params) { [1, 2, 3, 4] }
     subject { ProductArray.output(array_params) }
-    it { is_expected.to be_multiple_with_others(array_params) }
+    it { is_expected.to eq [24, 12, 8, 6] }
     context 'when array have duplicate number' do
-      let(:array_params) do
-        duplicate_array = Array.new(rand(3..10)) { rand(1..10_000) }
-        Array.new(rand(3..10)) { rand(1..10_000) }.concat(duplicate_array)
-      end
-      it { is_expected.to be_multiple_with_others(array_params) }
+      let(:array_params) { [1, 1, 3, 3, 4, 4] }
+      it { is_expected.to eq [144, 144, 48, 48, 36, 36] }
     end
     context 'when array\'s is irregular' do
       let(:array_params) { [] }
       it { is_expected.to eq [] }
+    end
+    context 'when array has zero number' do
+      let(:array_params) { [1, 0, 4, 6] }
+      it { is_expected.to eq [0, 24, 0, 0] }
     end
     context 'when array has negative number' do
       let(:array_params) { [-1, 2, 4, 6] }
