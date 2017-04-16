@@ -10,10 +10,10 @@
 # the total number of operations.
 
 class NumberFirst
-  # Srot the array in special ordering
+  # Srot the array with number first
   #
   # @param [Array] array a list of array
-  # @return [Array] An Array in special ordering
+  # @return [Array] An Array in number first
   def self.sorting(array)
     cache_block = array.count
     array.count.times do |index|
