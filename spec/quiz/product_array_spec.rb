@@ -42,5 +42,9 @@ describe ProductArray do
       let(:array_params) { [] }
       it { is_expected.to eq [] }
     end
+    context 'when array has negative number' do
+      let(:array_params) { [-1, 2, 4, 6] }
+      it { is_expected.to eq [48, -24, -12, -8] }
+    end
   end
 end
