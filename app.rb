@@ -7,7 +7,6 @@ board = [
 ]
 game_of_life = GameOfLife.new(board)
 loop do
-  # game_of_life.execute
   puts '------'
   game_of_life.execute.each do |cells|
     puts
