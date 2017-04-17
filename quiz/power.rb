@@ -8,8 +8,9 @@ class Power
   # @return [integer] power result
   def process(number, multiply_time)
     result = number
-    (multiply_time + 1).times do |_index|
+    (multiply_time - 1).times do
       result *= number
     end
+    result
   end
 end
